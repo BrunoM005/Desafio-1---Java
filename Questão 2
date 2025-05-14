@@ -1,20 +1,33 @@
+// Importa a classe Stack, que representa uma pilha em Java
 import java.util.Stack;
 
+// Declara a classe principal chamada OrdenarPilha
 public class OrdenarPilha {
 
+    // Método estático que ordena os elementos de uma pilha usando uma pilha auxiliar
     public static void ordenarPilha(Stack<Integer> pilha) {
+        // Cria uma pilha auxiliar que ajudará na ordenação
         Stack<Integer> auxiliar = new Stack<>();
 
+        // Enquanto a pilha original não estiver vazia
         while (!pilha.isEmpty()) {
+            // Remove o elemento do topo da pilha original
             int temp = pilha.pop();
 
+            // Move os elementos da pilha auxiliar de volta para a pilha original,
+            // até encontrar a posição correta para inserir 'temp'
             while (!auxiliar.isEmpty() && auxiliar.peek() > temp) {
                 pilha.push(auxiliar.pop());
             }
+
+            // Insere o elemento 'temp' na posição correta da pilha auxiliar
             auxiliar.push(temp);
         }
+
+        // Move os elementos ordenados da pilha auxiliar de volta para a pilha original
         while (!auxiliar.isEmpty()) {
             pilha.push(auxiliar.pop());
         }
     }
 }
+
