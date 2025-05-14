@@ -1,0 +1,57 @@
+import java.util.*;
+
+public class DuasFilas {
+
+    public static boolean filasIguais(Queue<Integer> f1, Queue<Integer> f2) {
+        return f1.equals(f2);
+    }
+
+    public static String compararTamanhos(Queue<Integer> f1, Queue<Integer> f2) {
+        if (f1.size() > f2.size()) return "F1 é maior";
+        else if (f2.size() > f1.size()) return "F2 é maior";
+        else return "F1 e F2 têm o mesmo tamanho";
+    }
+
+    public static void analisarFila(Queue<Integer> fila) {
+        if (fila.isEmpty()) {
+            System.out.println("A fila está vazia.");
+            return;
+        }
+
+        int maior = Integer.MIN_VALUE;
+        int menor = Integer.MAX_VALUE;
+        int soma = 0;
+
+        for (int val : fila) {
+            if (val > maior) maior = val;
+            if (val < menor) menor = val;
+            soma += val;
+        }
+
+        double media = (double) soma / fila.size();
+        System.out.println("Maior: " + maior);
+        System.out.println("Menor: " + menor);
+        System.out.printf("Média: %.2f\n", media);
+    }
+
+    public static void copiarFila(Queue<Integer> origem, Queue<Integer> destino) {
+        destino.clear();
+        destino.addAll(origem); // mantém a ordem
+    }
+
+    public static int contarImpares(Queue<Integer> fila) {
+        int count = 0;
+        for (int val : fila) {
+            if (val % 2 != 0) count++;
+        }
+        return count;
+    }
+
+    public static int contarPares(Queue<Integer> fila) {
+        int count = 0;
+        for (int val : fila) {
+            if (val % 2 == 0) count++;
+        }
+        return count;
+    }
+}
