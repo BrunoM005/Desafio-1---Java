@@ -1,0 +1,20 @@
+import java.util.Stack;
+
+public class OrdenarPilha {
+
+    public static void ordenarPilha(Stack<Integer> pilha) {
+        Stack<Integer> auxiliar = new Stack<>();
+
+        while (!pilha.isEmpty()) {
+            int temp = pilha.pop();
+
+            while (!auxiliar.isEmpty() && auxiliar.peek() > temp) {
+                pilha.push(auxiliar.pop());
+            }
+            auxiliar.push(temp);
+        }
+        while (!auxiliar.isEmpty()) {
+            pilha.push(auxiliar.pop());
+        }
+    }
+}
