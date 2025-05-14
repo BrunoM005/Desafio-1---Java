@@ -2,10 +2,11 @@ public class ListaDuplamenteEncadeada {
 
     // Classe do nó (representa um item da lista)
     static class No {
-        int valor;
-        No proximo;
-        No anterior;
+        int valor;     // Valor armazenado no nó
+        No proximo;    // Ponteiro para o próximo nó
+        No anterior;   // Ponteiro para o nó anterior
 
+        // Construtor do nó, inicializa com o valor e os ponteiros como null
         No(int valor) {
             this.valor = valor;
             this.proximo = null;
@@ -15,41 +16,41 @@ public class ListaDuplamenteEncadeada {
 
     // Classe da lista duplamente encadeada
     static class Lista {
-        No cabeca; // Nó cabeçalho (nó fictício)
+        No cabeca; // Nó cabeçalho (nó fictício que serve como ponto de referência)
 
         // Construtor da lista (inicializa a lista com um nó cabeça)
         Lista() {
-            cabeca = new No(0);  // Nó cabeça com valor 0 (ou qualquer valor que você escolher)
-            cabeca.proximo = cabeca; // O nó cabeça aponta para ele mesmo
-            cabeca.anterior = cabeca; // O nó cabeça aponta para ele mesmo
+            cabeca = new No(0);  // Criação do nó cabeça com valor 0 (ou qualquer valor que você escolher)
+            cabeca.proximo = cabeca;  // O nó cabeça aponta para ele mesmo, formando uma lista circular
+            cabeca.anterior = cabeca;  // O nó cabeça também aponta para ele mesmo como o nó anterior
         }
 
-        // Insere um valor no final da lista
+        // Método para inserir um valor no final da lista
         public void inserirFinal(int valor) {
-            No novo = new No(valor);
+            No novo = new No(valor);  // Criação de um novo nó com o valor fornecido
             No ultimo = cabeca.anterior;  // O último nó é sempre o nó anterior ao nó cabeça
 
-            // Ajustando os ponteiros
-            ultimo.proximo = novo;
-            novo.anterior = ultimo;
-            novo.proximo = cabeca;  // O novo nó aponta para o nó cabeça
-            cabeca.anterior = novo;  // O nó cabeça aponta para o novo nó
+            // Ajustando os ponteiros para inserir o novo nó no final
+            ultimo.proximo = novo;  // O último nó aponta para o novo nó
+            novo.anterior = ultimo;  // O novo nó aponta para o último nó
+            novo.proximo = cabeca;  // O novo nó aponta para o nó cabeça, fechando o ciclo
+            cabeca.anterior = novo;  // O nó cabeça aponta para o novo nó, tornando-o o novo último nó
         }
 
         // Função que localiza o P-ésimo elemento na lista
         public No Locate(int P) {
-            No atual = cabeca.proximo;  // Começa no primeiro nó após o cabeçalho
+            No atual = cabeca.proximo;  // Começa no primeiro nó após o nó cabeça
             int i = 1;  // A contagem começa a partir de 1 (posição 1 é o primeiro item)
 
-            while (atual != cabeca) {  // Percorre até o nó cabeça
+            while (atual != cabeca) {  // Percorre até encontrar o nó cabeça
                 if (i == P) {
-                    return atual;  // Retorna o ponteiro para o nó da posição P
+                    return atual;  // Se a posição P for encontrada, retorna o nó da posição P
                 }
-                i++;
-                atual = atual.proximo;
+                i++;  // Incrementa o contador de posição
+                atual = atual.proximo;  // Move para o próximo nó
             }
 
-            return null;  // Retorna NULL se não encontrar a posição P
+            return null;  // Retorna null se não encontrar a posição P
         }
 
         // Função que insere um item na posição P
@@ -81,22 +82,22 @@ public class ListaDuplamenteEncadeada {
 
         // Exibe os elementos da lista da cabeça para o final
         public void exibir() {
-            No atual = cabeca.proximo;
-            while (atual != cabeca) {
-                System.out.print(atual.valor + " ");
-                atual = atual.proximo;
+            No atual = cabeca.proximo;  // Começa no primeiro nó após o nó cabeça
+            while (atual != cabeca) {  // Continua até o nó cabeça
+                System.out.print(atual.valor + " ");  // Exibe o valor do nó atual
+                atual = atual.proximo;  // Move para o próximo nó
             }
-            System.out.println();
+            System.out.println();  // Pula para a próxima linha após exibir todos os elementos
         }
 
         // Exibe os elementos da lista do final para a cabeça
         public void exibirReverso() {
-            No atual = cabeca.anterior;
-            while (atual != cabeca) {
-                System.out.print(atual.valor + " ");
-                atual = atual.anterior;
+            No atual = cabeca.anterior;  // Começa no último nó (o nó anterior ao nó cabeça)
+            while (atual != cabeca) {  // Continua até o nó cabeça
+                System.out.print(atual.valor + " ");  // Exibe o valor do nó atual
+                atual = atual.anterior;  // Move para o nó anterior
             }
-            System.out.println();
+            System.out.println();  // Pula para a próxima linha após exibir todos os elementos
         }
     }
 
@@ -112,14 +113,15 @@ public class ListaDuplamenteEncadeada {
 
         // Exibindo a lista
         System.out.print("Lista: ");
-        lista.exibir();
+        lista.exibir();  // Esperado: 10 20 30 40
 
         // Inserindo elemento na posição 3
         lista.InsereP(25, 3);  // Insere o elemento 25 na posição 3
         System.out.print("Lista após inserção: ");
-        lista.exibir();
+        lista.exibir();  // Esperado: 10 20 25 30 40
 
         // Tentando inserir em uma posição inválida (5)
         lista.InsereP(50, 5);  // Tentativa de inserção na posição 5 (erro)
     }
 }
+
