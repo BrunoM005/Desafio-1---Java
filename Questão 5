@@ -1,53 +1,65 @@
-import java.util.Stack;
+import java.util.Stack; // Importa a classe Stack da biblioteca Java Collections
 
 public class DuasPilhas {
 
+    // Verifica se duas pilhas são exatamente iguais (mesmo tamanho e mesmos elementos na mesma ordem)
     public static boolean pilhasIguais(Stack<Integer> p1, Stack<Integer> p2) {
-        return p1.equals(p2);
+        return p1.equals(p2); // Usa o método equals da classe Stack
     }
 
+    // Compara o tamanho de duas pilhas e retorna uma mensagem correspondente
     public static String compararTamanhos(Stack<Integer> p1, Stack<Integer> p2) {
         if (p1.size() > p2.size()) return "P1 é maior";
         else if (p2.size() > p1.size()) return "P2 é maior";
         else return "P1 e P2 têm o mesmo tamanho";
     }
 
+    // Analisa os elementos de uma pilha: maior valor, menor valor e média dos elementos
     public static void analisarPilha(Stack<Integer> pilha) {
         if (pilha.isEmpty()) {
             System.out.println("A pilha está vazia.");
             return;
         }
 
-        Stack<Integer> aux = new Stack<>();
-        int maior = Integer.MIN_VALUE;
-        int menor = Integer.MAX_VALUE;
-        int soma = 0;
-        int count = 0;
+        Stack<Integer> aux = new Stack<>(); // Pilha auxiliar para restaurar a original
+        int maior = Integer.MIN_VALUE; // Inicializa maior com o menor valor possível
+        int menor = Integer.MAX_VALUE; // Inicializa menor com o maior valor possível
+        int soma = 0; // Soma dos elementos para cálculo da média
+        int count = 0; // Contador de elementos
 
+        // Percorre todos os elementos da pilha
         while (!pilha.isEmpty()) {
-            int val = pilha.pop();
-            if (val > maior) maior = val;
-            if (val < menor) menor = val;
-            soma += val;
+            int val = pilha.pop(); // Remove elemento do topo
+            if (val > maior) maior = val; // Atualiza maior se necessário
+            if (val < menor) menor = val; // Atualiza menor se necessário
+            soma += val; // Soma os valores
             count++;
-            aux.push(val);
+            aux.push(val); // Armazena na pilha auxiliar
         }
 
+        // Restaura a pilha original com os elementos na ordem original
         while (!aux.isEmpty()) pilha.push(aux.pop());
 
-        double media = (double) soma / count;
+        double media = (double) soma / count; // Calcula a média
         System.out.println("Maior: " + maior);
         System.out.println("Menor: " + menor);
         System.out.printf("Média: %.2f\n", media);
     }
 
+    // Copia o conteúdo de uma pilha de origem para uma pilha de destino, preservando a ordem original
     public static void copiarPilha(Stack<Integer> origem, Stack<Integer> destino) {
-        Stack<Integer> aux = new Stack<>();
-        for (int val : origem) aux.push(val); // Copia sem alterar a pilha original
-        destino.clear(); // Limpa P2 antes de copiar
-        while (!aux.isEmpty()) destino.push(aux.pop()); // Mantém a ordem
+        Stack<Integer> aux = new Stack<>(); // Pilha auxiliar para inverter a ordem
+
+        // Copia os elementos da pilha de origem para a auxiliar
+        for (int val : origem) aux.push(val);
+
+        destino.clear(); // Limpa a pilha de destino
+
+        // Insere os elementos de volta na ordem correta na pilha de destino
+        while (!aux.isEmpty()) destino.push(aux.pop());
     }
 
+    // Conta quantos números ímpares existem na pilha
     public static int contarImpares(Stack<Integer> pilha) {
         int cont = 0;
         for (int val : pilha) {
@@ -56,6 +68,7 @@ public class DuasPilhas {
         return cont;
     }
 
+    // Conta quantos números pares existem na pilha
     public static int contarPares(Stack<Integer> pilha) {
         int cont = 0;
         for (int val : pilha) {
