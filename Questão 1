@@ -1,34 +1,58 @@
+// Importa a classe Stack para usar pilhas e a classe Scanner para leitura de entrada do usuário
 import java.util.Stack;
 import java.util.Scanner;
 
+// Declara a classe principal
 public class InverterPalavrasComPilha {
+
+    // Método principal que executa o programa
     public static void main(String[] args) {
+
+        // Cria um objeto Scanner para ler a entrada do usuário
         Scanner scanner = new Scanner(System.in);
+
+        // Solicita que o usuário digite uma frase terminada com ponto
         System.out.println("Digite uma frase terminada com ponto:");
+
+        // Lê a linha digitada pelo usuário
         String texto = scanner.nextLine();
 
+        // Verifica se a frase termina com ponto final
         if (!texto.endsWith(".")) {
             System.out.println("A frase deve terminar com um ponto.");
-            return;
+            return; // Encerra o programa caso a frase não termine com ponto
         }
 
+        // Remove o ponto final da frase para facilitar o processamento
         texto = texto.substring(0, texto.length() - 1);
 
+        // Separa a frase em palavras usando espaço como delimitador
         String[] palavras = texto.split(" ");
+
+        // StringBuilder para armazenar o resultado final
         StringBuilder resultado = new StringBuilder();
 
+        // Percorre cada palavra da frase
         for (String palavra : palavras) {
+            // Cria uma pilha para inverter os caracteres da palavra
             Stack<Character> pilha = new Stack<>();
 
+            // Adiciona cada caractere da palavra na pilha
             for (char c : palavra.toCharArray()) {
                 pilha.push(c);
             }
 
+            // Retira os caracteres da pilha (em ordem reversa) e adiciona ao resultado
             while (!pilha.isEmpty()) {
                 resultado.append(pilha.pop());
             }
+
+            // Adiciona um espaço após cada palavra invertida
             resultado.append(" ");
         }
+
+        // Exibe a frase com as palavras invertidas, remove o espaço final e adiciona o ponto novamente
         System.out.println(resultado.toString().trim() + ".");
     }
 }
+
