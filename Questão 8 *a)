@@ -1,0 +1,81 @@
+public class UniaoSemRepeticao {
+
+    // Classe do nó da lista
+    static class No {
+        int valor;
+        No proximo;
+
+        No(int valor) {
+            this.valor = valor;
+            this.proximo = null;
+        }
+    }
+
+    static class ListaEncadeada {
+        No inicio;
+
+        public void inserir(int valor) {
+            if (!contem(valor)) { 
+                No novo = new No(valor);
+                if (inicio == null) {
+                    inicio = novo;
+                } else {
+                    No atual = inicio;
+                    while (atual.proximo != null) {
+                        atual = atual.proximo;
+                    }
+                    atual.proximo = novo;
+                }
+            }
+        }
+
+        public boolean contem(int valor) {
+            No atual = inicio;
+            while (atual != null) {
+                if (atual.valor == valor) {
+                    return true;
+                }
+                atual = atual.proximo;
+            }
+            return false;
+        }
+
+        public void exibir() {
+            No atual = inicio;
+            while (atual != null) {
+                System.out.print(atual.valor + " ");
+                atual = atual.proximo;
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        ListaEncadeada L1 = new ListaEncadeada();
+        ListaEncadeada L2 = new ListaEncadeada();
+        ListaEncadeada L3 = new ListaEncadeada();
+
+        L1.inserir(1);
+        L1.inserir(2);
+        L1.inserir(3);
+
+        L2.inserir(3);
+        L2.inserir(4);
+        L2.inserir(5);
+
+        No atual = L1.inicio;
+        while (atual != null) {
+            L3.inserir(atual.valor);
+            atual = atual.proximo;
+        }
+
+        atual = L2.inicio;
+        while (atual != null) {
+            L3.inserir(atual.valor);
+            atual = atual.proximo;
+        }
+
+        System.out.print("L3 (união sem repetição): ");
+        L3.exibir(); // Esperado: 1 2 3 4 5
+    }
+}
