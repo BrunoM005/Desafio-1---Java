@@ -1,59 +1,81 @@
 public class ListaEncadeadaVetor {
-    
+
+    // Classe interna que representa um nó da lista
     static class No {
-        int valor;
-        int proximo; // índice do próximo nó no vetor (-1 se for o fim)
-        
+        int valor;      // Valor armazenado no nó
+        int proximo;    // Índice do próximo nó no vetor (-1 indica fim da lista)
+
         No(int valor, int proximo) {
             this.valor = valor;
             this.proximo = proximo;
         }
     }
 
+    // Tamanho fixo do vetor que simula os nós da lista
     private static final int TAMANHO = 100;
+
+    // Vetor que armazena os nós
     private No[] lista = new No[TAMANHO];
+
+    // Índice do início da lista encadeada (cabeça)
     private int inicio = -1;
+
+    // Índice do próximo espaço livre no vetor
     private int livre = 0;
 
+    // Construtor: inicializa todos os nós com valor 0 e aponta os "próximos" para formar uma lista encadeada de posições livres
     public ListaEncadeadaVetor() {
         for (int i = 0; i < TAMANHO - 1; i++) {
-            lista[i] = new No(0, i + 1); // lista de posições livres
+            lista[i] = new No(0, i + 1); // Cada posição aponta para a próxima como disponível
         }
-        lista[TAMANHO - 1] = new No(0, -1);
+        lista[TAMANHO - 1] = new No(0, -1); // Último nó aponta para -1 (fim da lista de livres)
     }
 
+    // Insere um novo valor no início da lista
     public void inserirInicio(int valor) {
         if (livre == -1) {
             System.out.println("Lista cheia!");
             return;
         }
 
+        // Pega o índice da posição livre atual
         int novo = livre;
+
+        // Atualiza o ponteiro de livre para o próximo livre
         livre = lista[livre].proximo;
 
+        // Preenche o novo nó com o valor e aponta para o antigo início
         lista[novo].valor = valor;
         lista[novo].proximo = inicio;
+
+        // Atualiza o início da lista
         inicio = novo;
     }
 
+    // Exibe os elementos da lista encadeada
     public void exibir() {
         int atual = inicio;
         while (atual != -1) {
             System.out.print(lista[atual].valor + " ");
-            atual = lista[atual].proximo;
+            atual = lista[atual].proximo; // Move para o próximo nó
         }
         System.out.println();
     }
 
+    // Remove o primeiro elemento da lista
     public void removerInicio() {
         if (inicio == -1) {
             System.out.println("Lista vazia!");
             return;
         }
 
+        // Salva o índice do nó a ser removido
         int removido = inicio;
+
+        // Atualiza o início da lista para o próximo nó
         inicio = lista[inicio].proximo;
 
+        // Adiciona o nó removido de volta à lista de posições livres
         lista[removido].proximo = livre;
         livre = removido;
     }
