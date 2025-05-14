@@ -1,54 +1,78 @@
+// Importa todas as classes utilitárias necessárias (Queue, Stack, LinkedList, ArrayList, etc.)
 import java.util.*;
 
+// Declara a classe pública FilaDePilhas
 public class FilaDePilhas {
+
+    // Atributo privado: uma fila (Queue) que armazena pilhas (Stack) de inteiros
     private Queue<Stack<Integer>> fila;
 
+    // Construtor: inicializa a fila como uma LinkedList
     public FilaDePilhas() {
         fila = new LinkedList<>();
     }
 
+    // Método para inserir uma nova pilha no final da fila
     public void inserirPilha(Stack<Integer> pilha) {
-        fila.offer(pilha);
+        fila.offer(pilha); // adiciona a pilha à fila
     }
 
+    // Método para remover a primeira pilha da fila
     public Stack<Integer> removerPilha() {
         if (fila.isEmpty()) {
             System.out.println("A fila está vazia.");
-            return null;
+            return null; // retorna null se a fila estiver vazia
         }
-        return fila.poll();
+        return fila.poll(); // remove e retorna a primeira pilha da fila
     }
 
+    // Método para inserir um número na última pilha da fila
     public void inserirNumeroNaUltimaPilha(int numero) {
         if (fila.isEmpty()) {
             System.out.println("Não há pilhas na fila.");
-            return;
+            return; // se a fila estiver vazia, não há onde inserir
         }
+
+        // Converte a fila em uma lista temporária para acessar diretamente a última pilha
         List<Stack<Integer>> temp = new ArrayList<>(fila);
+
+        // Obtém a última pilha da lista
         Stack<Integer> ultima = temp.get(temp.size() - 1);
+
+        // Insere o número na última pilha
         ultima.push(numero);
+
+        // Limpa a fila original e adiciona novamente as pilhas (modificada)
         fila.clear();
         fila.addAll(temp);
     }
 
+    // Método para remover um número da primeira pilha da fila
     public Integer removerNumeroDaPrimeiraPilha() {
         if (fila.isEmpty()) {
             System.out.println("A fila está vazia.");
             return null;
         }
 
+        // Obtém a primeira pilha da fila sem removê-la
         Stack<Integer> primeira = fila.peek();
+
         if (primeira.isEmpty()) {
             System.out.println("A primeira pilha está vazia.");
             return null;
         }
+
+        // Remove e retorna o topo da primeira pilha
         return primeira.pop();
     }
 
+    // Método para exibir todas as pilhas contidas na fila
     public void mostrarFilaDePilhas() {
         int i = 1;
         for (Stack<Integer> pilha : fila) {
+            // Exibe cada pilha com seu índice
             System.out.println("Pilha " + i + ": " + pilha);
             i++;
         }
     }
+}
