@@ -1,44 +1,50 @@
-import java.util.*;
+import java.util.*; // Importa todas as classes utilitárias, incluindo Queue e LinkedList
 
 public class DuasFilas {
 
+    // Verifica se duas filas são exatamente iguais (mesmo tamanho e mesmos elementos na mesma ordem)
     public static boolean filasIguais(Queue<Integer> f1, Queue<Integer> f2) {
-        return f1.equals(f2);
+        return f1.equals(f2); // Usa o método equals da interface Queue
     }
 
+    // Compara o tamanho de duas filas e retorna qual é maior, ou se são iguais
     public static String compararTamanhos(Queue<Integer> f1, Queue<Integer> f2) {
         if (f1.size() > f2.size()) return "F1 é maior";
         else if (f2.size() > f1.size()) return "F2 é maior";
         else return "F1 e F2 têm o mesmo tamanho";
     }
 
+    // Analisa os elementos de uma fila: maior valor, menor valor e média
     public static void analisarFila(Queue<Integer> fila) {
         if (fila.isEmpty()) {
             System.out.println("A fila está vazia.");
             return;
         }
 
-        int maior = Integer.MIN_VALUE;
-        int menor = Integer.MAX_VALUE;
-        int soma = 0;
+        int maior = Integer.MIN_VALUE; // Inicializa com o menor valor possível
+        int menor = Integer.MAX_VALUE; // Inicializa com o maior valor possível
+        int soma = 0; // Acumulador para calcular a média
 
+        // Percorre todos os elementos da fila sem remover
         for (int val : fila) {
-            if (val > maior) maior = val;
-            if (val < menor) menor = val;
-            soma += val;
+            if (val > maior) maior = val; // Atualiza o maior valor
+            if (val < menor) menor = val; // Atualiza o menor valor
+            soma += val; // Soma os valores
         }
 
-        double media = (double) soma / fila.size();
+        double media = (double) soma / fila.size(); // Calcula a média
         System.out.println("Maior: " + maior);
         System.out.println("Menor: " + menor);
         System.out.printf("Média: %.2f\n", media);
     }
 
+    // Copia os elementos de uma fila de origem para uma fila de destino, preservando a ordem
     public static void copiarFila(Queue<Integer> origem, Queue<Integer> destino) {
-        destino.clear();
-        destino.addAll(origem); // mantém a ordem
+        destino.clear(); // Limpa a fila de destino antes de copiar
+        destino.addAll(origem); // Copia todos os elementos mantendo a ordem
     }
 
+    // Conta quantos números ímpares existem na fila
     public static int contarImpares(Queue<Integer> fila) {
         int count = 0;
         for (int val : fila) {
@@ -47,6 +53,7 @@ public class DuasFilas {
         return count;
     }
 
+    // Conta quantos números pares existem na fila
     public static int contarPares(Queue<Integer> fila) {
         int count = 0;
         for (int val : fila) {
@@ -55,3 +62,4 @@ public class DuasFilas {
         return count;
     }
 }
+
