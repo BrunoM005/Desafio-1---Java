@@ -1,0 +1,66 @@
+import java.util.Stack;
+
+public class DuasPilhas {
+
+    public static boolean pilhasIguais(Stack<Integer> p1, Stack<Integer> p2) {
+        return p1.equals(p2);
+    }
+
+    public static String compararTamanhos(Stack<Integer> p1, Stack<Integer> p2) {
+        if (p1.size() > p2.size()) return "P1 é maior";
+        else if (p2.size() > p1.size()) return "P2 é maior";
+        else return "P1 e P2 têm o mesmo tamanho";
+    }
+
+    public static void analisarPilha(Stack<Integer> pilha) {
+        if (pilha.isEmpty()) {
+            System.out.println("A pilha está vazia.");
+            return;
+        }
+
+        Stack<Integer> aux = new Stack<>();
+        int maior = Integer.MIN_VALUE;
+        int menor = Integer.MAX_VALUE;
+        int soma = 0;
+        int count = 0;
+
+        while (!pilha.isEmpty()) {
+            int val = pilha.pop();
+            if (val > maior) maior = val;
+            if (val < menor) menor = val;
+            soma += val;
+            count++;
+            aux.push(val);
+        }
+
+        while (!aux.isEmpty()) pilha.push(aux.pop());
+
+        double media = (double) soma / count;
+        System.out.println("Maior: " + maior);
+        System.out.println("Menor: " + menor);
+        System.out.printf("Média: %.2f\n", media);
+    }
+
+    public static void copiarPilha(Stack<Integer> origem, Stack<Integer> destino) {
+        Stack<Integer> aux = new Stack<>();
+        for (int val : origem) aux.push(val); // Copia sem alterar a pilha original
+        destino.clear(); // Limpa P2 antes de copiar
+        while (!aux.isEmpty()) destino.push(aux.pop()); // Mantém a ordem
+    }
+
+    public static int contarImpares(Stack<Integer> pilha) {
+        int cont = 0;
+        for (int val : pilha) {
+            if (val % 2 != 0) cont++;
+        }
+        return cont;
+    }
+
+    public static int contarPares(Stack<Integer> pilha) {
+        int cont = 0;
+        for (int val : pilha) {
+            if (val % 2 == 0) cont++;
+        }
+        return cont;
+    }
+}
