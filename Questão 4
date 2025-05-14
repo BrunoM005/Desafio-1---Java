@@ -1,9 +1,12 @@
+// Classe principal que implementa uma pilha usando lista duplamente encadeada
 public class PilhaListaDupla {
 
+    // Classe interna Node representa um nó da lista
     private class Node {
-        int valor;
-        Node anterior, proximo;
+        int valor;              // Valor armazenado no nó
+        Node anterior, proximo; // Referências para o nó anterior e próximo
 
+        // Construtor do nó
         Node(int valor) {
             this.valor = valor;
             this.anterior = null;
@@ -11,42 +14,46 @@ public class PilhaListaDupla {
         }
     }
 
-    private Node topo; // Início da lista
-    private int tamanho;
+    private Node topo;   // Referência para o topo da pilha (início da lista)
+    private int tamanho; // Quantidade de elementos na pilha
 
+    // Construtor da pilha: inicializa como vazia
     public PilhaListaDupla() {
         topo = null;
         tamanho = 0;
     }
 
+    // Método push: insere um valor no topo da pilha
     public void push(int valor) {
-        Node novo = new Node(valor);
-        novo.proximo = topo;
+        Node novo = new Node(valor);  // Cria novo nó com o valor
+        novo.proximo = topo;          // O próximo do novo nó aponta para o antigo topo
 
         if (topo != null) {
-            topo.anterior = novo;
+            topo.anterior = novo;     // Atualiza o anterior do antigo topo para o novo nó
         }
 
-        topo = novo;
-        tamanho++;
+        topo = novo;   // O novo nó agora é o topo da pilha
+        tamanho++;     // Incrementa o tamanho da pilha
     }
 
+    // Método pop: remove e retorna o valor do topo da pilha
     public int pop() {
         if (isEmpty()) {
-            throw new RuntimeException("Pilha vazia");
+            throw new RuntimeException("Pilha vazia"); // Lança erro se estiver vazia
         }
 
-        int valor = topo.valor;
-        topo = topo.proximo;
+        int valor = topo.valor;        // Guarda o valor do topo
+        topo = topo.proximo;           // Move o topo para o próximo nó
 
         if (topo != null) {
-            topo.anterior = null;
+            topo.anterior = null;      // Remove o vínculo com o nó anterior
         }
 
-        tamanho--;
-        return valor;
+        tamanho--;                     // Decrementa o tamanho
+        return valor;                  // Retorna o valor removido
     }
 
+    // Método peek: retorna o valor do topo sem remover
     public int peek() {
         if (isEmpty()) {
             throw new RuntimeException("Pilha vazia");
@@ -54,14 +61,17 @@ public class PilhaListaDupla {
         return topo.valor;
     }
 
+    // Método isEmpty: verifica se a pilha está vazia
     public boolean isEmpty() {
         return topo == null;
     }
 
+    // Método tamanho: retorna o tamanho atual da pilha
     public int tamanho() {
         return tamanho;
     }
 
+    // Método exibir: imprime os elementos da pilha do topo até o final
     public void exibir() {
         Node atual = topo;
         System.out.print("Topo -> ");
@@ -69,6 +79,6 @@ public class PilhaListaDupla {
             System.out.print(atual.valor + " ");
             atual = atual.proximo;
         }
-        System.out.println();
+        System.out.println(); // Nova linha ao final
     }
 }
