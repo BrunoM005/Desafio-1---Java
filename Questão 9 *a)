@@ -1,0 +1,78 @@
+public class ListaDuplamenteEncadeada {
+
+    // Classe do nó (representa um elemento da lista)
+    static class No {
+        int valor;
+        No proximo;
+        No anterior;
+
+        No(int valor) {
+            this.valor = valor;
+            this.proximo = null;
+            this.anterior = null;
+        }
+    }
+
+    // Classe da lista duplamente encadeada
+    static class Lista {
+        No cabeca; // Nó cabeçalho (nó fictício)
+        
+        // Construtor da lista (inicializa a lista com um nó cabeça)
+        Lista() {
+            cabeca = new No(0);  // Nó cabeça com valor 0 (ou qualquer valor que você escolher)
+            cabeca.proximo = cabeca; // O nó cabeça aponta para ele mesmo
+            cabeca.anterior = cabeca; // O nó cabeça aponta para ele mesmo
+        }
+
+        // Insere um valor no final da lista
+        public void inserirFinal(int valor) {
+            No novo = new No(valor);
+            No ultimo = cabeca.anterior;  // O último nó é sempre o nó anterior ao nó cabeça
+
+            // Ajustando os ponteiros
+            ultimo.proximo = novo;
+            novo.anterior = ultimo;
+            novo.proximo = cabeca;  // O novo nó aponta para o nó cabeça
+            cabeca.anterior = novo;  // O nó cabeça aponta para o novo nó
+        }
+
+        // Exibe os elementos da lista da cabeça para o final
+        public void exibir() {
+            No atual = cabeca.proximo;
+            while (atual != cabeca) {
+                System.out.print(atual.valor + " ");
+                atual = atual.proximo;
+            }
+            System.out.println();
+        }
+
+        // Exibe os elementos da lista do final para a cabeça
+        public void exibirReverso() {
+            No atual = cabeca.anterior;
+            while (atual != cabeca) {
+                System.out.print(atual.valor + " ");
+                atual = atual.anterior;
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        // Criando uma lista duplamente encadeada
+        Lista lista = new Lista();
+
+        // Inserindo elementos
+        lista.inserirFinal(1);
+        lista.inserirFinal(2);
+        lista.inserirFinal(3);
+        lista.inserirFinal(4);
+
+        // Exibindo a lista da cabeça para o final
+        System.out.print("Lista da cabeça para o final: ");
+        lista.exibir();
+
+        // Exibindo a lista do final para a cabeça
+        System.out.print("Lista do final para a cabeça: ");
+        lista.exibirReverso();
+    }
+}
