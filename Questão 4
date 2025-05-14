@@ -1,0 +1,74 @@
+public class PilhaListaDupla {
+
+    private class Node {
+        int valor;
+        Node anterior, proximo;
+
+        Node(int valor) {
+            this.valor = valor;
+            this.anterior = null;
+            this.proximo = null;
+        }
+    }
+
+    private Node topo; // Início da lista
+    private int tamanho;
+
+    public PilhaListaDupla() {
+        topo = null;
+        tamanho = 0;
+    }
+
+    public void push(int valor) {
+        Node novo = new Node(valor);
+        novo.proximo = topo;
+
+        if (topo != null) {
+            topo.anterior = novo;
+        }
+
+        topo = novo;
+        tamanho++;
+    }
+
+    public int pop() {
+        if (isEmpty()) {
+            throw new RuntimeException("Pilha vazia");
+        }
+
+        int valor = topo.valor;
+        topo = topo.proximo;
+
+        if (topo != null) {
+            topo.anterior = null;
+        }
+
+        tamanho--;
+        return valor;
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            throw new RuntimeException("Pilha vazia");
+        }
+        return topo.valor;
+    }
+
+    public boolean isEmpty() {
+        return topo == null;
+    }
+
+    public int tamanho() {
+        return tamanho;
+    }
+
+    public void exibir() {
+        Node atual = topo;
+        System.out.print("Topo -> ");
+        while (atual != null) {
+            System.out.print(atual.valor + " ");
+            atual = atual.proximo;
+        }
+        System.out.println();
+    }
+}
