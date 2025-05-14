@@ -1,0 +1,54 @@
+import java.util.*;
+
+public class FilaDePilhas {
+    private Queue<Stack<Integer>> fila;
+
+    public FilaDePilhas() {
+        fila = new LinkedList<>();
+    }
+
+    public void inserirPilha(Stack<Integer> pilha) {
+        fila.offer(pilha);
+    }
+
+    public Stack<Integer> removerPilha() {
+        if (fila.isEmpty()) {
+            System.out.println("A fila está vazia.");
+            return null;
+        }
+        return fila.poll();
+    }
+
+    public void inserirNumeroNaUltimaPilha(int numero) {
+        if (fila.isEmpty()) {
+            System.out.println("Não há pilhas na fila.");
+            return;
+        }
+        List<Stack<Integer>> temp = new ArrayList<>(fila);
+        Stack<Integer> ultima = temp.get(temp.size() - 1);
+        ultima.push(numero);
+        fila.clear();
+        fila.addAll(temp);
+    }
+
+    public Integer removerNumeroDaPrimeiraPilha() {
+        if (fila.isEmpty()) {
+            System.out.println("A fila está vazia.");
+            return null;
+        }
+
+        Stack<Integer> primeira = fila.peek();
+        if (primeira.isEmpty()) {
+            System.out.println("A primeira pilha está vazia.");
+            return null;
+        }
+        return primeira.pop();
+    }
+
+    public void mostrarFilaDePilhas() {
+        int i = 1;
+        for (Stack<Integer> pilha : fila) {
+            System.out.println("Pilha " + i + ": " + pilha);
+            i++;
+        }
+    }
